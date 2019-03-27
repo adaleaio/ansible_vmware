@@ -1,6 +1,7 @@
 ---
 - name: Debug VMWare Host Facts
   hosts: all
+  gather_facts: no
   tasks:
   
   - name: Gather vmware host facts
@@ -12,5 +13,6 @@
     register: host_facts
     delegate_to: localhost
 
-  - debug:
+  - name: Debug VMWare host facts
+    debug:
       msg: "{{ host_facts }}"
