@@ -1,0 +1,30 @@
+---
+- name: check vmware disk usage
+  hosts: all
+  gather_facts: no
+  vars:
+    - dest_file: "/tmp/{{ inventory_hostname }}-vm-list.csv"
+  tasks:
+    - name: Gather all registered virtual machines
+      vmware_vm_facts:
+        hostname: "{{ ansible_host }}"
+        username: "{{ ansible_ssh_user }}"
+        password: "{{ ansible_ssh_pass }}"
+        validate_certs: no
+      delegate_to: localhost
+      register: vmfacts
+    
+    - debug:
+        var: vmfacts.virtual_machines
+
+    - debug:
+        var: vmfacts
+
+    - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
+      template:
+        src: templates/vmware_vm_facts.j2
+        dest: "{{ dest_file }}"
+      delegate_to: localhost
+
+      
+

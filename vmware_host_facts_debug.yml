@@ -1,0 +1,16 @@
+---
+- name: Debug VMWare Host Facts
+  hosts: all
+  tasks:
+  
+  - name: Gather vmware host facts
+    vmware_host_facts:
+      hostname: "{{ inventory_hostname }}"
+      username: "{{ ansible_user }}"
+      password: "{{ ansible_ssh_pass }}"
+      validate_certs: no
+    register: host_facts
+    delegate_to: localhost
+
+  - debug:
+      msg: "{{ host_facts }}"

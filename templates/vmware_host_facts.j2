@@ -1,0 +1,3 @@
+Host;IP;Free Disk Space
+{{ inventory_hostname }};{{ ansible_host }};{{ host_facts.ansible_facts.ansible_datastore.0.free }}
+
