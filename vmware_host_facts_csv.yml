@@ -5,14 +5,14 @@
   vars:
     - output_dir: /tmp
     - filename: vmware_host_facts.csv
-    - host: smtp.mailgun.org
-    - port: 25
-    - username: postmaster@adalea.io
-    - password: P4ssw0rd
-    - to: user@domain.com
-    - from: awx@adalea.io
-    - subject: "VMWare Hosts Facts"
-    - body: "Body"
+    - mail_host: smtp.mailgun.org
+    - mail_port: 25
+    - mail_username: postmaster@adalea.io
+    - mail_password: P4ssw0rd
+    - mail_to: user@domain.com
+    - mail_from: awx@adalea.io
+    - mail_subject: "VMWare Hosts Facts"
+    - mail_body: "Body"
   tasks:
   - name: Gather vmware host facts
     vmware_host_facts:
