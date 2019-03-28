@@ -31,7 +31,7 @@
         line: "{{ inventory_hostname }},{{ item }},{{ item.power_state }},{{ item.mac_address }}"
         path: "{{ dest_file }}"
       delegate_to: localhost
-      with_items: vmfacts.virtual_machines
+      with_items: "{{ vmfacts.virtual_machines }}"
 
     - name: "Add header to vm facts file"
       lineinfile:
