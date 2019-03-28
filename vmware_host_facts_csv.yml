@@ -35,13 +35,13 @@
 
   - name: Email results
     mail:
-      host: "{{ host }}"
-      port: "{{ port }}"
-      username: "{{ username }}"
-      password: "{{ password }}"
-      to: "{{ to }}"
-      subject: "{{ subject }}"
-      body: "{{ body }}"
+      host: "{{ mail_host }}"
+      port: "{{ mail_port }}"
+      username: "{{ mail_username }}"
+      password: "{{ mail_password }}"
+      to: "{{ mail_to }}"
+      subject: "{{ mail_subject }}"
+      body: "{{ mail_body }}"
       attach:
         - "{{ output_dir }}/vmware_host_facts.csv"
     delegate_to: localhost
