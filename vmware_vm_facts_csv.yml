@@ -28,7 +28,7 @@
 
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       lineinfile:
-        line: "{{ inventory_hostname }},{{ item }},{{ item.power_state }},{{ item.mac_address }}"
+        line: "{{ inventory_hostname }},{{ item.0 }},{{ item.0.power_state }},{{ item.0.mac_address }}"
         path: "{{ dest_file }}"
       delegate_to: localhost
       with_items: "{{ vmfacts.virtual_machines }}"
