@@ -47,7 +47,7 @@
         attach:
           - "{{ dest_file }}"
       delegate_to: localhost
-      run_once: yes
+      #run_once: yes
   
     - name: Delete the report after email
       file:
