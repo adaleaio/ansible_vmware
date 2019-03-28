@@ -4,6 +4,14 @@
   gather_facts: no
   vars:
     - output_dir: /tmp
+    - host: smtp.mailgun.org
+    - port: 25
+    - username: postmaster@adalea.io
+    - password: P4ssw0rd
+    - to: user@domain.com
+    - from: awx@adalea.io
+    - subject: "VMWare Hosts Facts"
+    - body: "Body"
   tasks:
   - name: Gather vmware host facts
     vmware_host_facts:
