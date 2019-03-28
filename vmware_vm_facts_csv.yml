@@ -12,6 +12,7 @@
     - mail_from: awx@adalea.io
     - mail_subject: "VMWare Hosts Facts"
     - mail_body: "Body"
+    - vm: {}
   tasks:
     - name: Gather all registered virtual machines
       vmware_vm_facts:
@@ -30,12 +31,12 @@
 
     - name: Build full list of VMs for all Hosts
       set_fact:
-        virtual_machines: "{{ virtual_machines|default({})|combine(vmfacts.virtual_machines) }}"
+        vm: "{{ vm|combine(vmfacts.virtual_machines) }}"
 
     - name: Debug full list of VMs
       debug:
-        var: virtual_machines
-        
+        var: vm
+
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       template:
         src: templates/vmware_vm_facts.j2
