@@ -6,7 +6,7 @@
   
   - name: Gather vmware host facts
     vmware_host_facts:
-      hostname: "{{ inventory_hostname }}"
+      hostname: "{{ ansible_host }}"
       username: "{{ ansible_ssh_user }}"
       password: "{{ ansible_ssh_pass }}"
       validate_certs: no
