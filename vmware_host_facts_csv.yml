@@ -32,3 +32,16 @@
       state: present
       create: yes
     delegate_to: localhost
+
+  - name: Email results
+    mail:
+      host: "{{ host }}"
+      port: "{{ port }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      to: "{{ to }}"
+      subject: "{{ subject }}"
+      body: "{{ body }}"
+      attach:
+        - "{{ output_dir }}/vmware_host_facts.csv"
+    delegate_to: localhost
