@@ -51,3 +51,4 @@
     file:
       path: "{{ output_dir }}/vmware_host_facts.csv"
       state: absent
+    delegate_to: localhost
