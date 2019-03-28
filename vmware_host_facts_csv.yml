@@ -54,9 +54,11 @@
       attach:
         - "{{ output_dir }}/vmware_host_facts.csv"
     delegate_to: localhost
+    run_once: yes
 
   - name: Delete the report after email
     file:
       path: "{{ output_dir }}/vmware_host_facts.csv"
       state: absent
     delegate_to: localhost
+    run_once: yes
