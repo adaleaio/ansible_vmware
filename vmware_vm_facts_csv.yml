@@ -38,7 +38,7 @@
         line: "VM Host,VM Name,Power State,Mac Address"
         path: "{{ dest_file }}"
         insertbefore: BOF
-      run_once: yes:
+      run_once: yes
 
 
     - name: Email results
