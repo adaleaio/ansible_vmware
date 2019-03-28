@@ -28,6 +28,14 @@
     - debug:
         var: vmfacts
 
+    - name: Build full list of VMs for all Hosts
+      set_fact:
+        virtual_machines: "{{ virtual_machines|default({})|combine(vmfacts.virtual_machines) }}"
+
+    - name: Debug full list of VMs
+      debug:
+        var: virtual_machines
+        
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       template:
         src: templates/vmware_vm_facts.j2
