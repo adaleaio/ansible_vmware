@@ -1,5 +1,4 @@
-VM Host,VM Name,Power State,Mac Address
-{% for vm, property in virtual_machines.items()  %}
+{% for vm, property in vmfacts.virtual_machines.items()  %}
 {{ inventory_hostname }},{{ vm }},{{ property.power_state }},{{ property.mac_address }}
 {% endfor %}
 

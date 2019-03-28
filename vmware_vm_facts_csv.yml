@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   vars:
-    - dest_file: "/tmp/{{ inventory_hostname }}-vm-list.csv"
+    - dest_file: "/tmp/vmware-vm-list.csv"
     - mail_host: smtp.mailgun.org
     - mail_port: 25
     - mail_username: postmaster@adalea.io
@@ -22,26 +22,24 @@
         validate_certs: no
       delegate_to: localhost
       register: vmfacts
-    
-    - debug:
-        var: vmfacts.virtual_machines
 
     - debug:
         var: vmfacts
 
-    - name: Build full list of VMs for all Hosts
-      set_fact:
-        vm: "{{ vm|combine(vmfacts.virtual_machines) }}"
-
-    - name: Debug full list of VMs
-      debug:
-        var: vm
-
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
-      template:
-        src: templates/vmware_vm_facts.j2
-        dest: "{{ dest_file }}"
+      lineinfile:
+        line: "{{ inventory_hostname }},{{ item.key }},{{ item.power_state }},{{ item.mac_address }}"
+        path: "{{ dest_file }}"
       delegate_to: localhost
+      with_items: vmfacts.virtual_machines
+
+    - name: "Add header to vm facts file"
+      lineinfile:
+        line: "VM Host,VM Name,Power State,Mac Address"
+        path: "{{ dest_file }}"
+        insertbefore: BOF
+      run_once: yes:
+
 
     - name: Email results
       mail:
