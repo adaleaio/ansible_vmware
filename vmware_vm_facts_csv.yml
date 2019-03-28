@@ -28,7 +28,7 @@
 
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       lineinfile:
-        line: "{{ inventory_hostname }},{{ item.key }},{{ item.power_state }},{{ item.mac_address }}"
+        line: "{{ inventory_hostname }},{{ item }},{{ item.power_state }},{{ item.mac_address }}"
         path: "{{ dest_file }}"
       delegate_to: localhost
       with_items: vmfacts.virtual_machines
@@ -38,6 +38,7 @@
         line: "VM Host,VM Name,Power State,Mac Address"
         path: "{{ dest_file }}"
         insertbefore: BOF
+      delegate_to: localhost
       run_once: yes
 
 
@@ -54,7 +55,7 @@
         attach:
           - "{{ dest_file }}"
       delegate_to: localhost
-      #run_once: yes
+      run_once: yes
   
     - name: Delete the report after email
       file:
