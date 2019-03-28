@@ -4,6 +4,14 @@
   gather_facts: no
   vars:
     - dest_file: "/tmp/{{ inventory_hostname }}-vm-list.csv"
+    - mail_host: smtp.mailgun.org
+    - mail_port: 25
+    - mail_username: postmaster@adalea.io
+    - mail_password: P4ssw0rd
+    - mail_to: user@domain.com
+    - mail_from: awx@adalea.io
+    - mail_subject: "VMWare Hosts Facts"
+    - mail_body: "Body"
   tasks:
     - name: Gather all registered virtual machines
       vmware_vm_facts:
@@ -25,6 +33,28 @@
         src: templates/vmware_vm_facts.j2
         dest: "{{ dest_file }}"
       delegate_to: localhost
+
+    - name: Email results
+      mail:
+        host: "{{ mail_host }}"
+        port: "{{ mail_port }}"
+        username: "{{ mail_username }}"
+        password: "{{ mail_password }}"
+        to: "{{ mail_to }}"
+        from: "{{ mail_from }}"
+        subject: "{{ mail_subject }}"
+        body: "{{ mail_body }}"
+        attach:
+          - "{{ dest_file }}"
+      delegate_to: localhost
+      run_once: yes
+  
+    - name: Delete the report after email
+      file:
+        path: "{{ dest_file }}"
+        state: absent
+      delegate_to: localhost
+      run_once: yes
 
       
 
