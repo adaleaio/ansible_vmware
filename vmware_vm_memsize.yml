@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   vars:
-    - shell_command: "/bin/grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | /bin/sed -e 's/.*\/\(.*\)/\1/' | /bin/sed -e 's/\.vmx\:memSize = /,/'"
+    - shell_command: grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
   vars:
     - output_dir: /tmp
     - filename: vmware_vm_ram.csv
