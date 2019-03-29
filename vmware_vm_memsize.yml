@@ -3,8 +3,6 @@
   hosts: all
   gather_facts: no
   vars:
-    - shell_command: "grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'"
-  vars:
     - output_dir: /tmp
     - filename: vmware_vm_ram.csv
     - mail_host: smtp.mailgun.org
@@ -15,10 +13,12 @@
     - mail_from: awx@adalea.io
     - mail_subject: "VMWare Hosts Facts"
     - mail_body: "Body"
+    - shell_command: grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
+
   tasks:
 
   - name: Identify configured RAM for VMs
-    shell: "{{ shell_command }}"
+    shell: "{{ shell_command|quote }}"
     register: memsize
 
   - name: Debug output
