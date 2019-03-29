@@ -32,7 +32,7 @@
         #line: "{{ inventory_hostname }},{{ item }}"
         path: "{{ dest_file }}"
       delegate_to: localhost
-      with_dict: "{{ vmfacts.virtual_machines }}"
+      with_items: "{{ vmfacts.virtual_machines | dict2items }}"
 
     - name: "Add header to vm facts file"
       lineinfile:
