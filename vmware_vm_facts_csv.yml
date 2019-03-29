@@ -33,7 +33,7 @@
 
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       lineinfile:
-        line: "{{ inventory_hostname }},{{ item.key }},{{ item.value.power_state }},{{ item.value.ip_address }}, {{ item.value.mac_address | replace(',','') }}, {{ item.value.guest_fullname }},{{ item.value.vm_network }}, {{ item.value.cluster }}, {{ item.value.esxi_hostname }}, {{ item.value.uuid }}"
+        line: "{{ inventory_hostname }},{{ item.key }},{{ item.value.power_state }},{{ item.value.ip_address }}, {{ item.value.mac_address | replace(',','') }}, {{ item.value.guest_fullname }},{{ item.value.vm_network | replace(',','') }}, {{ item.value.cluster }}, {{ item.value.esxi_hostname }}, {{ item.value.uuid }}"
         path: "{{ dest_file }}"
         create: yes
       delegate_to: localhost
