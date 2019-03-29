@@ -2,6 +2,7 @@
 - name: Create vmware host facts csv file
   hosts: all
   gather_facts: no
+  serial: 1
   vars:
     - output_dir: /tmp
     - filename: vmware_vm_ram.csv
