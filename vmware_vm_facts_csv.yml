@@ -35,6 +35,7 @@
       lineinfile:
         line: "{{ inventory_hostname }},{{ item.key }},{{ item.value.power_state }},{{ item.value.mac_address }}"
         path: "{{ dest_file }}"
+        create: yes
       delegate_to: localhost
       with_items: "{{ vmfacts.virtual_machines | dict2items }}"
 
