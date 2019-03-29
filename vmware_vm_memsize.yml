@@ -3,6 +3,8 @@
   hosts: all
   gather_facts: no
   vars:
+    - shell_command: "/bin/grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | /bin/sed -e 's/.*\/\(.*\)/\1/' | /bin/sed -e 's/\.vmx\:memSize = /,/'"
+  vars:
     - output_dir: /tmp
     - filename: vmware_vm_ram.csv
     - mail_host: smtp.mailgun.org
@@ -16,8 +18,12 @@
   tasks:
 
   - name: Identify configured RAM for VMs
-    command: /bin/grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | /bin/sed -e 's/.*\/\(.*\)/\1/' | /bin/sed -e 's/\.vmx\:memSize = /,/'
+    shell: "{{ shell_command|quote }}"
     register: memsize
+
+  - name: Debug output
+    debug:
+      msg: "{{ memsize }}"
 
 
   - name: "Write Headers {{ output_dir }}/{{ filename }}"
