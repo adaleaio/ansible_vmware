@@ -16,7 +16,7 @@
   tasks:
 
   - name: Identify configured RAM for VMs
-    shell: grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
+    raw: grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
     register: memsize
 
 
