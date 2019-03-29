@@ -29,7 +29,7 @@
     - name: Debug Dictionary
       debug:
         msg: "{{ item }}"
-      with_items: "{{ vmfacts.virtual_machines | dict2items }}
+      with_dict: "{{ vmfacts.virtual_machines | dict2items }}
 
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       lineinfile:
