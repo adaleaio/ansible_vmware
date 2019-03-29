@@ -36,7 +36,7 @@
 
   - name: "Write Host Facts {{ output_dir }}/{{ filename }}"
     lineinfile:
-      line: "{{ inventory_hostname }},{{ item|replace('.vmx:mem[Ss]ize = ',',') }}"
+      line: "{{ inventory_hostname }},{{ item|regex_replace('.vmx:mem[Ss]ize = ',',') }}"
       dest: "{{ output_dir }}/{{ filename }}"
       state: present
       create: yes
