@@ -15,10 +15,8 @@
     - mail_body: "Body"
   tasks:
 
-  - name: run df command
-    shell:
-      cmds:
-      - grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
+  - name: Identify configured RAM for VMs
+    shell: grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
     register: memsize
 
 
