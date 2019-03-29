@@ -13,7 +13,7 @@
     - mail_from: awx@adalea.io
     - mail_subject: "VMWare Hosts Facts"
     - mail_body: "Body"
-    - shell_command: /bin/grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | /bin/sed -e 's/.*\/\(.*\)/\1/' | /bin/sed -e 's/\.vmx\:memSize = /,/'
+    - shell_command: /bin/grep -i memsize /vmfs/volumes/datastore1/*/*.vmx
 
   tasks:
 
@@ -36,12 +36,12 @@
 
   - name: "Write Host Facts {{ output_dir }}/{{ filename }}"
     lineinfile:
-      line: "{{ inventory_hostname }},{{ item }}"
+      line: "{{ inventory_hostname }},{{ item||replace('.*\/','')|replace('.vmx:memsize = ',',') }}"
       dest: "{{ output_dir }}/{{ filename }}"
       state: present
       create: yes
     delegate_to: localhost
-    with_items: "{{ memsize.stdout_lines.0 }}"
+    with_items: "{{ memsize.stdout_lines }}"
 
   - name: Email results
     mail:
