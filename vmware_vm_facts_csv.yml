@@ -2,7 +2,6 @@
 - name: check vmware disk usage
   hosts: all
   gather_facts: no
-  serial: 1
   vars:
     - dest_file: "/tmp/vmware-vm-list.csv"
     - mail_host: smtp.mailgun.org
