@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   vars:
-    - shell_command: grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'
+    - shell_command: "grep -i memsize /vmfs/volumes/datastore1/*/*.vmx | sed -e 's/.*\/\(.*\)/\1/' | sed -e 's/\.vmx\:memSize = /,/'"
   vars:
     - output_dir: /tmp
     - filename: vmware_vm_ram.csv
@@ -18,7 +18,7 @@
   tasks:
 
   - name: Identify configured RAM for VMs
-    shell: "{{ shell_command|quote }}"
+    shell: "{{ shell_command }}"
     register: memsize
 
   - name: Debug output
