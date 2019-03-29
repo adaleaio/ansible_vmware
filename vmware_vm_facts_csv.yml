@@ -26,10 +26,14 @@
     - debug:
         var: vmfacts
 
+    - name: Debug Dictionary
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ vmfacts.virtual_machines | dict2items }}
+
     - name: "Write CSV report for {{ inventory_hostname }} to {{ dest_file }}"
       lineinfile:
         line: "{{ inventory_hostname }},{{ item.key }},{{ item.power_state }},{{ item.mac_address }}"
-        #line: "{{ inventory_hostname }},{{ item }}"
         path: "{{ dest_file }}"
       delegate_to: localhost
       with_items: "{{ vmfacts.virtual_machines | dict2items }}"
