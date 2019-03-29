@@ -2,6 +2,7 @@
 - name: check vmware disk usage
   hosts: all
   gather_facts: no
+  serial: 1
   vars:
     - dest_file: "/tmp/vmware-vm-list.csv"
     - mail_host: smtp.mailgun.org
@@ -12,7 +13,6 @@
     - mail_from: awx@adalea.io
     - mail_subject: "VMWare Hosts Facts"
     - mail_body: "Body"
-    - vm: {}
   tasks:
     - name: Gather all registered virtual machines
       vmware_vm_facts:
