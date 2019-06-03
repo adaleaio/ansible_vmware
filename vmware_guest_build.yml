@@ -26,7 +26,7 @@
         scsi: paravirtual
       cdrom:
         type: iso
-        iso_path: "[datastore1] livecd.iso"
+        iso_path: "[NASBackup]/ISOs/CentOS-6.9-x86_64-minimal.iso"
       networks:
       - name: VM Network
         #mac: aa:bb:dd:aa:00:14
