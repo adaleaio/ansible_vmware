@@ -4,7 +4,7 @@
   gather_facts: no
   vars:
   tasks:
-  - name: "Create a virtual machine on {{ esxi_hostname }}"
+  - name: Create a virtual machine on ESXi Host
     vmware_guest:
       hostname: "{{ esxi_hostname }}"
       username: "{{ esxi_username }}"
@@ -30,9 +30,9 @@
       networks:
       - name: VM Network
         #mac: aa:bb:dd:aa:00:14
-        ip: "{{ vm_ip_address }}"
-        netmask: "{{ vm_subnet_mask }}"
+        #ip: "{{ vm_ip_address }}"
+        #netmask: "{{ vm_subnet_mask }}"
         device_type: vmxnet3
-      wait_for_ip_address: yes
+      wait_for_ip_address: no
     delegate_to: localhost
     register: deploy_vm
