@@ -1,21 +1,21 @@
 ---
 - name: Create a virtual machine on ESXi Host
-  hosts: all
+  hosts: localhost
   gather_facts: no
   vars:
   tasks:
-  - name: "Create a virtual machine on {{ vcenter_hostname }}"
+  - name: "Create a virtual machine on {{ esxi_hostname }}"
     vmware_guest:
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
+      hostname: "{{ esxi_hostname }}"
+      username: "{{ esxi_username }}"
+      password: "{{ esxi_password }}"
       validate_certs: no
       folder: /
       name: "{{ vm_name }}"
       state: poweredon
       guest_id: centos64Guest
       # This is hostname of particular ESXi server on which user wants VM to be deployed
-      esxi_hostname: "{{ esxi_hostname }}"
+      # esxi_hostname: "{{ esxi_hostname }}"
       disk:
       - size_gb: "{{ hd_size_gb }}"
         type: thin
